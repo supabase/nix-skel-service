@@ -1,0 +1,9 @@
+{
+  "name": "my-go-service",
+  "description": "My Go service",
+  "owner": "your-org",
+  "repo": "your-repo",
+  "ref": "v0.0.0",
+  "sha256": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  "vendorHash": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+}

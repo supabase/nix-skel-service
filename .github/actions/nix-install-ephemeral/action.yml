@@ -1,0 +1,17 @@
+name: 'Install Nix on ephemeral runners'
+description: 'Installs Nix on Blacksmith ephemeral runners'
+runs:
+  using: 'composite'
+  steps:
+    - name: Remove existing Nix socket
+      shell: bash
+      run: |
+        sudo rm /nix/var/nix/daemon-socket/socket /nix/receipt.json || true
+        sudo chown root /nix /nix/var /nix/var/nix || true
+    - uses: NixOS/nix-installer-action@d6ef7ecd8f685af89869e5aca0580a33e3e3150c
+      with:
+        installer-version: 2.33.2
+        extra-conf: |
+          substituters = https://cache.nixos.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          max-jobs = 4
