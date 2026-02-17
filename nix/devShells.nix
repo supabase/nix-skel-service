@@ -10,8 +10,20 @@
         ];
 
         devshell.startup.pre-commit.text = config.pre-commit.installationScript;
+        devshell.startup.welcome.text = ''
+          echo ""
+          echo "  Tip: You can run commands directly (e.g. 'package go')"
+          echo "       or via just (e.g. 'just package go') — both work."
+          echo ""
+        '';
 
         commands = [
+          {
+            name = "package";
+            help = "Package a service for Nix (e.g. `package go`)";
+            command = "just package $@";
+            category = "scaffold";
+          }
           {
             name = "fmt";
             help = "Format code";
