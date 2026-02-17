@@ -47,7 +47,7 @@ Verify the installation:
 ## 2. Clone this repository
 
     git clone <this-repo-url> nix-<myname>-service
-    cd nix-skel-service
+    cd nix-<myname>-service
 
 ## 3. Enter the development shell
 
