@@ -4,16 +4,49 @@ Step-by-step guide to packaging a Go service with this skeleton.
 
 ## 1. Install Nix
 
-Install Nix using the Determinate Systems installer:
+### Step 1: Create nix.conf
 
-    curl --proto '=https' --tlsv1.2 -sSf -L \
-      https://install.determinate.systems/nix | sh -s -- install
+Create a file named `nix.conf` with the following content:
 
-This enables flakes and the nix command by default.
+```
+allowed-users = *
+always-allow-substitutes = true
+auto-optimise-store = false
+build-users-group = nixbld
+builders-use-substitutes = true
+cores = 0
+experimental-features = nix-command flakes
+max-jobs = auto
+netrc-file =
+require-sigs = true
+substituters = https://cache.nixos.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+trusted-substituters =
+trusted-users = YOUR_USERNAME root
+extra-sandbox-paths =
+extra-substituters =
+```
+
+**Important**: Replace `YOUR_USERNAME` with your actual username in the
+`trusted-users` line.
+
+### Step 2: Install Nix
+
+Run the following command to install Nix with the custom configuration:
+
+    curl -L https://releases.nixos.org/nix/nix-2.33.2/install | \
+      sh -s -- --daemon --yes --nix-extra-conf-file ./nix.conf
+
+After installation, **log out and log back in** (or restart your terminal
+session) so that Nix is on your `$PATH`.
+
+Verify the installation:
+
+    nix --version
 
 ## 2. Clone this repository
 
-    git clone <this-repo-url>
+    git clone <this-repo-url> nix-<myname>-service
     cd nix-skel-service
 
 ## 3. Enter the development shell
@@ -22,7 +55,7 @@ This enables flakes and the nix command by default.
 
 This drops you into a shell with `just` and formatting tools.
 
-## 4. Run the scaffold
+## 4. Run the scaffold (for instance if packaging Go)
 
     just package go
 
@@ -76,10 +109,9 @@ These are optional. Without them, builds will still run but won't cache.
 
 ### Runner requirements
 
-- **x86_64-linux** — uses ephemeral runners (Blacksmith or GitHub-hosted)
-- **aarch64-linux** — uses ephemeral ARM runners or self-hosted
-- **aarch64-darwin** — requires self-hosted macOS runners in a
-  `self-hosted-runners-nix` runner group
+- **x86_64-linux** — Blacksmith ephemeral runners with sticky disk cache
+- **aarch64-linux** — Blacksmith ephemeral ARM runners with sticky disk cache
+- **aarch64-darwin** — GitHub-hosted macOS runners
 
 ## 8. Troubleshooting
 
