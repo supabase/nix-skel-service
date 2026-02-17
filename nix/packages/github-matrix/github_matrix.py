@@ -274,7 +274,7 @@ def main() -> None:
             cleaned_pkg = clean_package_for_output(pkg)
             if pkg["attr"].startswith("checks."):
                 checks_by_system[pkg["system"]].append(cleaned_pkg)
-            elif pkg["attr"].startswith("legacyPackages."):
+            elif pkg["attr"].startswith("packages."):
                 packages_by_system[pkg["system"]].append(cleaned_pkg)
 
     packages_output: Dict[str, Dict[str, List[GitHubActionPackage]]] = {}

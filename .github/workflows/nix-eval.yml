@@ -30,7 +30,7 @@ jobs:
         name: Generate Nix Matrix
         run: |
           set -Eeu -o pipefail
-          nix run --accept-flake-config .\#github-matrix -- checks legacyPackages
+          nix run --accept-flake-config .\#github-matrix -- checks packages
 
           sudo systemctl stop nix-daemon.socket || true
           sudo systemctl stop nix-daemon.service || true
