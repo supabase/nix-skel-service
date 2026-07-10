@@ -4,43 +4,9 @@ Step-by-step guide to packaging a Go service with this skeleton.
 
 ## 1. Install Nix
 
-### Step 1: Create nix.conf
+Follow the [installation instructions](https://github.com/supabase/postgres/blob/develop/nix/docs/start-here.md).
 
-Create a file named `nix.conf` with the following content:
-
-```
-allowed-users = *
-always-allow-substitutes = true
-auto-optimise-store = false
-build-users-group = nixbld
-builders-use-substitutes = true
-cores = 0
-experimental-features = nix-command flakes
-max-jobs = auto
-netrc-file =
-require-sigs = true
-substituters = https://cache.nixos.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-trusted-substituters =
-trusted-users = YOUR_USERNAME root
-extra-sandbox-paths =
-extra-substituters =
-```
-
-**Important**: Replace `YOUR_USERNAME` with your actual username in the
-`trusted-users` line.
-
-### Step 2: Install Nix
-
-Run the following command to install Nix with the custom configuration:
-
-    curl -L https://releases.nixos.org/nix/nix-2.33.2/install | \
-      sh -s -- --daemon --yes --nix-extra-conf-file ./nix.conf
-
-After installation, **log out and log back in** (or restart your terminal
-session) so that Nix is on your `$PATH`.
-
-Verify the installation:
+Log out and back in, then verify:
 
     nix --version
 
